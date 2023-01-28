@@ -1,6 +1,6 @@
 package io.lamedh.ziodd.core.subscheduler
 
-import zio.{IO, UIO, Task}
+import zio.{IO, UIO}
 import zio.stream.Stream
 
 trait SubscriptionSchedulerAlg {

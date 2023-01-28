@@ -4,7 +4,7 @@ package core.subscheduler
 import core.invoice._
 import core.subscription.SubscriptionAlg
 import zio.stream.{ZStream, Stream}
-import zio.{Clock, IO, UIO, Task, ZIO, ZLayer}
+import zio.{Clock, IO, UIO, ZIO, ZLayer}
 
 class SubscriptionSchedulerLive(
     invoiceAlg: InvoiceAlg,

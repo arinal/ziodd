@@ -5,8 +5,7 @@ package boot
 import zio.cli.HelpDoc.Span.text
 import zio.cli.ZIOCliDefault
 import zio.cli.CliApp
-import zio.Console.printLine
-import zio.{ZIO, Scope, ZIOAppArgs}
+import zio.ZIO
 
 object Main extends ZIOCliDefault {
 
