@@ -1,6 +1,6 @@
 package io.lamedh.ziodd.core.invoice
 
-import cats.data.NonEmptyList
+import zio.prelude.NonEmptyList
 
 sealed trait Invoice {
   def isBillable: Boolean

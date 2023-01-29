@@ -10,6 +10,7 @@ object Dependencies {
 
   object Zio {
     val zio     = "dev.zio" %% "zio"              % zioVersion
+    val prelude = "dev.zio" %% "zio-prelude"      % "1.0.0-RC16"
     val streams = "dev.zio" %% "zio-streams"      % zioVersion
     val cli     = "dev.zio" %% "zio-cli"          % "0.3.0-M02"
     val cats    = "dev.zio" %% "zio-interop-cats" % "23.0.0.0"
@@ -43,7 +44,7 @@ object Dependencies {
 
   object layer {
 
-    val core        = Seq(Cats.cats, Zio.zio, Zio.streams)
+    val core        = Seq(Zio.zio, Zio.streams, Zio.prelude)
     val appCliSched = Seq(Zio.cli, Config.pureconfig)
 
     val appApiHttpSched = Seq(

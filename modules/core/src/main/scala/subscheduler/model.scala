@@ -1,12 +1,11 @@
 package io.lamedh.ziodd.core
 package subscheduler
 
+import common.fail
+import zio.prelude.Validation.{validateWith, succeed}
 import zio.IO
-import cats.data._
-import cats.syntax.all._
 
 import java.time.OffsetDateTime
-import zio.ZIO
 
 final case class Schedule(
     invoiceId: String,
@@ -23,19 +22,21 @@ object Schedule {
       isTest: Boolean = false,
       partner: Option[String] = None
   ): IO[SchedError, Schedule] = {
-    val res = validateInvoiceId(invoiceId)
-      .map(id => Schedule(id, due, isTest, partner))
-    validatedToIO(res)
+    validateWith(
+      validateInvoiceId(invoiceId),
+      nonCompetitor(partner)
+    ) { (_, _) =>
+      Schedule(invoiceId, due, isTest, partner)
+    }.toZIOAssociative
+      .mapError(InvalidDomain)
   }
 
-  private def validateInvoiceId(id: String): Result[String] =
-    if (id.isEmpty) s"invoiceId couldn't be empty".invalidNec
-    else if (id.size > 5) "invoiceId too long".invalidNec
-    else id.validNec
+  private def validateInvoiceId(id: String) =
+    if (id.isEmpty) fail("invoiceId couldn't be empty")
+    else if (id.size > 5) fail("invoiceId too long")
+    else succeed(id)
 
-  type Result[A] = ValidatedNec[String, A]
-
-  private def validatedToIO[A](result: Result[A]): IO[InvalidDomain, A] = {
-    ZIO.fromEither(result.toEither.left.map(errs => InvalidDomain(errs.toList)))
-  }
+  private def nonCompetitor(partner: Option[String]) =
+    if (partner == Some("competitor")) fail("Never partnering with competitor")
+    else succeed(partner)
 }

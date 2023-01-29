@@ -4,10 +4,8 @@ package app.cli.sched
 import core.subscheduler.SubscriptionSchedulerAlg
 import core.subscheduler.Schedule
 import core.subscheduler.InvalidDomain
-import zio.Clock
-import zio.ZIO
 import zio.Console.printLine
-import zio.ZLayer
+import zio.{Clock, ZLayer, ZIO}
 
 class CommandHandler(schedAlg: SubscriptionSchedulerAlg) {
 
