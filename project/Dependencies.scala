@@ -20,10 +20,6 @@ object Dependencies {
     val generic = "io.circe" %% "circe-generic" % circeVersion
   }
 
-  object Cats {
-    val cats = "org.typelevel" %% "cats-core" % catsVersion
-  }
-
   object Config {
     val pureconfig = "com.github.pureconfig" %% "pureconfig" % pureConfigVersion
   }
@@ -44,7 +40,7 @@ object Dependencies {
 
   object layer {
 
-    val core        = Seq(Zio.zio, Zio.streams, Zio.prelude)
+    val core        = Seq(Zio.zio, Zio.prelude, Zio.streams)
     val appCliSched = Seq(Zio.cli, Config.pureconfig)
 
     val appApiHttpSched = Seq(

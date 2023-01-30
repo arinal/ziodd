@@ -62,8 +62,5 @@ object App {
 
   case class Config(host: Host, port: Port)
 
-  val layer =
-    ZLayer.fromFunction((cfg: Config, alg: SubscriptionSchedulerAlg) =>
-      new App(alg, cfg)
-    )
+  val layer = ZLayer.fromFunction(new App(_, _))
 }

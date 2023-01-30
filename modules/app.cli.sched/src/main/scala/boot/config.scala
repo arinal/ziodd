@@ -36,14 +36,21 @@ object Config {
     }
 
     val coreSched =
-      ZLayer.fromFunction((conf: Config) => conf.core.subscheduler)
-
+      ZLayer.service[Config].project(_.core.subscheduler)
+    
     val infraInvoiceHttpClient =
-      ZLayer.fromFunction((conf: Config) => conf.infra.invoiceHttpClient)
+      ZLayer.service[Config].project(_.infra.invoiceHttpClient)
 
     val infraSubHttpClient =
-      ZLayer.fromFunction((conf: Config) => conf.infra.subscriptionHttpClient)
+      ZLayer.service[Config].project(_.infra.subscriptionHttpClient)
 
-    rootLayer >>> (coreSched ++ infraInvoiceHttpClient ++ infraSubHttpClient)
+    ZLayer.make[
+      SubscriptionSchedulerLive.Config with InvoiceHttpClient.Config with SubscriptionHttpClient.Config
+    ](
+      rootLayer,
+      coreSched,
+      infraInvoiceHttpClient,
+      infraSubHttpClient,
+    )
   }
 }

@@ -82,12 +82,5 @@ object SubscriptionSchedulerLive {
     Nothing,
     SubscriptionSchedulerAlg
   ] =
-    ZLayer.fromFunction {
-      (
-          inv: InvoiceAlg,
-          sub: SubscriptionAlg,
-          rep: ScheduleRepo,
-          conf: Config
-      ) => new SubscriptionSchedulerLive(inv, sub, rep, conf)
-    }
+    ZLayer.fromFunction(new SubscriptionSchedulerLive(_, _, _, _))
 }
