@@ -66,6 +66,5 @@ object Config {
       infraSubHttpClient,
       appApiHttpSched
     )
-    //rootLayer >>> (coreSched ++ infraSubHttpClient ++ infraInvoiceHttpClient ++ appApiHttpSched)
   }
 }
