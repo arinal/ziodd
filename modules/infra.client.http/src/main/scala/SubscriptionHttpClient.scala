@@ -9,7 +9,7 @@ import zio.ZLayer
 
 class SubscriptionHttpClient(config: SubscriptionHttpClient.Config)
     extends SubscriptionAlg {
-      
+
   def revoke(
       subscriptionId: String,
       isTest: Boolean = false,
@@ -22,6 +22,5 @@ object SubscriptionHttpClient {
 
   case class Config(url: String)
 
-  val layer: ZLayer[Config, Nothing, SubscriptionAlg] =
-    ZLayer.fromFunction(new SubscriptionHttpClient(_))
+  val layer = ZLayer.fromFunction(new SubscriptionHttpClient(_))
 }

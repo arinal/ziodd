@@ -77,10 +77,5 @@ object SubscriptionSchedulerLive {
 
   case class Config(maxDaysInThePast: Int)
 
-  def layer: ZLayer[
-    InvoiceAlg with SubscriptionAlg with ScheduleRepo with Config,
-    Nothing,
-    SubscriptionSchedulerAlg
-  ] =
-    ZLayer.fromFunction(new SubscriptionSchedulerLive(_, _, _, _))
+  def layer = ZLayer.fromFunction(new SubscriptionSchedulerLive(_, _, _, _))
 }
